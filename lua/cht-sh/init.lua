@@ -9,6 +9,7 @@ local action_state = require('telescope.actions.state')
 
 M.config = {
   base_url = "https://cht.sh/",
+  bin = nil,
   default_lang = nil,
   keymap = "<leader>ch",
 }
@@ -58,12 +59,11 @@ local function get_language_from_filetype(filetype)
 end
 
 function M.fetch_cheat_sheet(query)
-  local url = M.config.base_url .. query
-  local cmd = string.format("curl -s '%s'", url)
+  local cmd = M.config.bin and M.config.bin .. " " .. query or "curl -s " .. M.config.base_url .. query
   
   local handle = io.popen(cmd)
   if not handle then
-    vim.notify("Failed to execute curl command", vim.log.levels.ERROR)
+    vim.notify("Failed to execute " .. M.config.bin and "bin command" or "curl command", vim.log.levels.ERROR)
     return nil
   end
   

@@ -68,6 +68,7 @@ use {
 ```lua
 require('cht-sh').setup({
   base_url = "https://cht.sh/",  -- cht.sh base URL
+  bin = nil,                     -- cht.sh binary location like "cht.sh" or "/somewhere/bin/cht.sh" or leave it nil so it uses the URL
   default_lang = nil,            -- default language for queries
   keymap = "<leader>ch",         -- main keymap
 })
