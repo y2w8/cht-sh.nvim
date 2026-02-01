@@ -13,7 +13,7 @@ A Neovim plugin that integrates [cht.sh](https://cht.sh) for quick cheat sheet l
 ## Requirements
 
 - Neovim >= 0.7
-- `curl` (for API requests)
+- `curl` (for API requests when `bin` is not set)
 
 ## Installation
 

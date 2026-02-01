@@ -59,11 +59,17 @@ local function get_language_from_filetype(filetype)
 end
 
 function M.fetch_cheat_sheet(query)
-  local cmd = M.config.bin and M.config.bin .. " " .. query or "curl -s " .. M.config.base_url .. query
+  local cmd
+  if M.config.bin then
+    cmd = string.format("%s %s", vim.fn.shellescape(M.config.bin), vim.fn.shellescape(query))
+  else
+    cmd = "curl -s " .. vim.fn.shellescape(M.config.base_url .. query)
+  end
   
   local handle = io.popen(cmd)
   if not handle then
-    vim.notify("Failed to execute " .. M.config.bin and "bin command" or "curl command", vim.log.levels.ERROR)
+    local cmd_label = M.config.bin and "bin command" or "curl command"
+    vim.notify("Failed to execute " .. cmd_label, vim.log.levels.ERROR)
     return nil
   end
   
